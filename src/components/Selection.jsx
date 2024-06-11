@@ -2,9 +2,9 @@ import React, { useState, Suspense } from 'react';
 import { Canvas } from '@react-three/fiber';
 import { OrbitControls, useGLTF } from '@react-three/drei';
 
-function Model({ url, scale }) {
+function Model({ url }) {
   const { scene } = useGLTF(url);
-  return <primitive object={scene} scale={scale} />;
+  return <primitive object={scene} />;
 }
 
 function GenderSelection() {
@@ -14,14 +14,8 @@ function GenderSelection() {
 
   const handleGenderChange = (event) => {
     setGender(event.target.value);
-    setClothesType('');
-    setFilteredModels([]);
-  };
-
-  const getModelUrl = () => {
-    if (gender === 'male') return '/models/male_new_dummy.glb';
-    if (gender === 'female') return '/models/female_new_dummy.glb';
-    return null;
+    setClothesType(''); // Reset clothes type when gender changes
+    setFilteredModels([]); // Reset filtered models when gender changes
   };
 
   const handleClothesTypeChange = (event) => {
@@ -64,21 +58,26 @@ function GenderSelection() {
       (model) => model.includes(gender) && model.includes(selectedClothesType)
     );
     setFilteredModels(filtered);
-    console.log(filteredModels);
+  };
+
+  const getModelUrl = () => {
+    if (gender === 'male') return '/models/male_latest_dummy.glb';
+    if (gender === 'female') return '/models/female_latest_dummy.glb';
+    return null;
   };
 
   const getModelCards = () => {
     if (filteredModels.length === 0) {
-        return (
-            <div className="text-center mt-4">
-                <p>No models found.</p>
-            </div>
-        );
+      return (
+        <div className="text-center mt-4">
+          <p>No models found.</p>
+        </div>
+      );
     }
     return filteredModels.map((modelUrl, index) => (
       <div
         key={index}
-        className='bg-gray-100 rounded-lg shadow-md p-6 m-2 w-full sm:w-1/2 lg:w-1/3 xl:w-1/4'
+        className='bg-gray-100 rounded-lg shadow-md p-6 m-2 w-full sm:w-1/2 lg:w-full xl:w-full'
       >
         <Canvas style={{ width: '100%', height: '200px' }}>
           <ambientLight intensity={0.5} />
@@ -93,9 +92,9 @@ function GenderSelection() {
   };
 
   return (
-    <div className='flex flex-wrap h-screen'>
-      {/* Left Side (3/4) */}
-      <div className='w-full lg:w-3/4 p-4 bg-gray-200'>
+    <div className='flex h-screen'>
+      {/* Left Side (Gender and Model Canvas) */}
+      <div className='w-full lg:w-3/4 p-4 bg-gray-200 overflow-hidden'>
         <div className='bg-white rounded-lg shadow-md p-6 w-full sm:max-w-md mx-auto'>
           <h1 className='text-2xl font-bold mb-4 text-center'>Select Gender</h1>
           <div className='flex flex-col space-y-4'>
@@ -135,12 +134,9 @@ function GenderSelection() {
             </Canvas>
           </div>
         )}
-        {filteredModels.length > 0 && (
-          <div className='flex flex-wrap mt-8'>{getModelCards()}</div>
-        )}
       </div>
-      {/* Right Side (1/4) */}
-      <div className='w-full lg:w-1/4 p-4 bg-gray-100'>
+      {/* Right Side (Clothes Type and Filtered Models) */}
+      <div className='w-full lg:w-1/4 p-4 bg-gray-100 overflow-y-auto h-full'>
         <div className='bg-white rounded-lg shadow-md p-6 w-full'>
           <h1 className='text-2xl font-bold mb-4 text-center'>
             Select Clothes Type
@@ -178,6 +174,8 @@ function GenderSelection() {
             </div>
           </div>
         </div>
+        {/* Render filtered models below the dropdown */}
+        <div className='mt-8'>{getModelCards()}</div>
       </div>
     </div>
   );
