@@ -1,6 +1,7 @@
 import React, { useState, Suspense } from 'react';
 import { Canvas } from '@react-three/fiber';
-import { OrbitControls, useGLTF } from '@react-three/drei';
+import { OrbitControls, useGLTF,PerspectiveCamera } from '@react-three/drei';
+
 
 function Model({ url }) {
   const { scene } = useGLTF(url);
@@ -61,8 +62,8 @@ function GenderSelection() {
   };
 
   const getModelUrl = () => {
-    if (gender === 'male') return '/models/male_latest_dummy.glb';
-    if (gender === 'female') return '/models/female_latest_dummy.glb';
+    if (gender === 'male') return '/models/male_new_dummy.glb';
+    if (gender === 'female') return '/models/female_new_dummy.glb';
     return null;
   };
 
@@ -77,15 +78,16 @@ function GenderSelection() {
     return filteredModels.map((modelUrl, index) => (
       <div
         key={index}
-        className='bg-gray-100 rounded-lg shadow-md p-6 m-2 w-full sm:w-1/2 lg:w-full xl:w-full'
+        className='bg-white rounded-lg shadow-md p-6 m-2 w-full sm:w-1/2 lg:w-full xl:w-full'
       >
-        <Canvas style={{ width: '100%', height: '200px' }}>
+        <Canvas style={{ width: '100%', height: '300px' }}>
           <ambientLight intensity={0.5} />
-          <directionalLight position={[0.5, 5, 5]} intensity={1} />
+          <directionalLight position={[0.5, 0.5, 5]} intensity={1} />
           <Suspense fallback={null}>
-            <Model url={modelUrl} scale={[1, 1, 1]} />
+            <Model url={modelUrl} scale={[2, 2, 2]} />
           </Suspense>
           <OrbitControls />
+          <PerspectiveCamera makeDefault position={[0, 0, 1]} /> {/* Adjusted Camera Position */} 
         </Canvas>
       </div>
     ));
@@ -94,7 +96,7 @@ function GenderSelection() {
   return (
     <div className='flex h-screen'>
       {/* Left Side (Gender and Model Canvas) */}
-      <div className='w-full lg:w-3/4 p-4 bg-gray-200 overflow-hidden'>
+      <div className='w-full lg:w-3/4 p-4 bg-white overflow-hidden'>
         <div className='bg-white rounded-lg shadow-md p-6 w-full sm:max-w-md mx-auto'>
           <h1 className='text-2xl font-bold mb-4 text-center'>Select Gender</h1>
           <div className='flex flex-col space-y-4'>
@@ -121,22 +123,23 @@ function GenderSelection() {
         </div><br></br>
         {gender && (
           <div
-            className='mt-8 bg-gray-100 mt-8 mx-auto w-full sm:w-96 h-96'
+            className='mt-8 bg-gray-200 mt-8 mx-auto w-full sm:w-96 h-96'
             style={{ width: '600px', height: '600px', margin: '0 auto' }}
           >
             <Canvas style={{ width: '100%', height: '100%' }}>
               <ambientLight intensity={1} />
               <directionalLight position={[0.5, 5, 5]} intensity={1} />
               <Suspense fallback={null}>
-                <Model url={getModelUrl()} />
+                <Model url={getModelUrl()} scale={[2, 2, 2]}/>
               </Suspense>
               <OrbitControls />
+              <PerspectiveCamera makeDefault position={[0, 0, 1]} />
             </Canvas>
           </div>
         )}
       </div>
       {/* Right Side (Clothes Type and Filtered Models) */}
-      <div className='w-full lg:w-1/4 p-4 bg-gray-100 overflow-y-auto h-full'>
+      <div className='w-full lg:w-1/4 p-4 bg-gray-200 overflow-y-auto h-full'>
         <div className='bg-white rounded-lg shadow-md p-6 w-full'>
           <h1 className='text-2xl font-bold mb-4 text-center'>
             Select Clothes Type
