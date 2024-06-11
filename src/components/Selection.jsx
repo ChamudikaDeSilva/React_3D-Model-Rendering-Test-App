@@ -176,8 +176,8 @@ function GenderSelection() {
                 <option value='shorts'>Shorts</option>
                 <option value='skirts'>Skirts</option>
                 <option value='frocks'>Frocks</option>
-                <option value='hats'>Hats</option>
-                <option value='caps'>Caps</option>
+                <option value='hat'>Hats</option>
+                <option value='cap'>Caps</option>
                 <option value='jumpsuits'>Jumpsuits</option>
               </select>
             </div>
