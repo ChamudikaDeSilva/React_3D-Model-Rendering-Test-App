@@ -94,37 +94,43 @@ function GenderSelection() {
   };
 
   return (
+    <div className='h-screen'>
+      {/* Centered Heading */}
+      <div className="flex items-center bg-teal-200 pb-3 pt-2 justify-center w-full">
+        <h2 className="text-5xl font-bold text-gray-800">ZOZO Dressing Room</h2>
+      </div>
     <div className='flex h-screen'>
       {/* Left Side (Gender and Model Canvas) */}
-      <div className='w-full lg:w-3/4 p-4 bg-white overflow-hidden'>
-        <div className='bg-white rounded-lg shadow-md p-6 w-full sm:max-w-md mx-auto'>
+      <div className='w-full lg:w-3/4 p-4 bg-gray-200 overflow-hidden'>
+        <div className='bg-stone-300 rounded-lg shadow-md p-4 w-full sm:max-w-md mx-auto'>
           <h1 className='text-2xl font-bold mb-4 text-center'>Select Gender</h1>
           <div className='flex flex-col space-y-4'>
-            <div>
-              <label
-                htmlFor='gender'
-                className='block text-sm font-medium text-gray-700'
-              >
-                Gender
-              </label>
-              <select
-                id='gender'
-                name='gender'
-                className='mt-1 block w-full sm:w-auto px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm'
-                onChange={handleGenderChange}
-                value={gender}
-              >
-                <option value=''>Select Gender</option>
-                <option value='male'>Male</option>
-                <option value='female'>Female</option>
-              </select>
-            </div>
+          <div className='flex items-center space-x-4'>
+            <label
+              htmlFor='gender'
+              className='text-sm font-medium text-gray-700'
+            >
+              Gender
+            </label>
+            <select
+              id='gender'
+              name='gender'
+              className='mt-1 block w-full sm:w-auto px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm'
+              onChange={handleGenderChange}
+              value={gender}
+            >
+              <option value=''>Select Gender</option>
+              <option value='male'>Male</option>
+              <option value='female'>Female</option>
+            </select>
+          </div>
+
           </div>
         </div><br></br>
         {gender && (
           <div
-            className='mt-8 bg-gray-200 mt-8 mx-auto w-full sm:w-96 h-96'
-            style={{ width: '600px', height: '600px', margin: '0 auto' }}
+            className='mt-8 bg-white mt-8 mx-auto w-full sm:w-96 h-96'
+            style={{ width: '800px', height: '800px', margin: '0 auto' }}
           >
             <Canvas style={{ width: '100%', height: '100%' }}>
               <ambientLight intensity={1} />
@@ -140,12 +146,12 @@ function GenderSelection() {
       </div>
       {/* Right Side (Clothes Type and Filtered Models) */}
       <div className='w-full lg:w-1/4 p-4 bg-gray-200 overflow-y-auto h-full'>
-        <div className='bg-white rounded-lg shadow-md p-6 w-full'>
+        <div className='bg-stone-300 rounded-lg shadow-md p-4 w-full'>
           <h1 className='text-2xl font-bold mb-4 text-center'>
             Select Clothes Type
           </h1>
           <div className='flex flex-col space-y-4'>
-            <div>
+          <div className='flex items-center space-x-4'>
               <label
                 htmlFor='clothesType'
                 className='block text-sm font-medium text-gray-700'
@@ -181,6 +187,7 @@ function GenderSelection() {
         <div className='mt-8'>{getModelCards()}</div>
       </div>
     </div>
+  </div>
   );
 }
 
