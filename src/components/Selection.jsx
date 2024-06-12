@@ -68,13 +68,13 @@ function GenderSelection() {
   };
 
   const getModelCards = () => {
-    if (filteredModels.length === 0) {
+    /*if (filteredModels.length === 0) {
       return (
         <div className="text-center mt-4">
           <p>No models found.</p>
         </div>
       );
-    }
+    }*/
     return filteredModels.map((modelUrl, index) => (
       <div
         key={index}
@@ -96,8 +96,8 @@ function GenderSelection() {
   return (
     <div className='h-screen'>
       {/* Centered Heading */}
-      <div className="flex items-center bg-teal-200 pb-3 pt-2 justify-center w-full">
-        <h2 className="text-5xl font-bold text-gray-800">ZOZO Dressing Room</h2>
+      <div className="flex items-center bg-stone-600 pb-3 pt-2 justify-center w-full">
+        <h2 className="text-5xl font-bold text-white">ZOZO Dressing Room</h2>
       </div>
     <div className='flex h-screen'>
       {/* Left Side (Gender and Model Canvas) */}
